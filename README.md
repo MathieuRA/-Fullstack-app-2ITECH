@@ -40,7 +40,30 @@ Endpoint of the API:
     `/project/id` - get / delete / put
     `/project` - get / delete
     
-When deleting user, each project of this user are deleted too. 
+When deleting user, each project of this user are deleted too.
+
+`post` and `put` route are waiting a stringify object.
+
+For user `post`/`put`:
+```ts
+{
+    firstname: String,
+    job: String,
+    lastname: String
+}
+```
+
+
+For project `post`/`put`:
+```ts
+{
+    created_date: <Date>Timestamp,
+    developper_id: String,
+    techno: Array,
+    thumbnail: String,
+    title: String
+}
+```
     
 ### UI
 UI made with `React.js` with `JSX`
