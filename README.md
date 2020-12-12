@@ -28,11 +28,13 @@ Dont forget to create your `dbUser.ts` for your `db` configuration
 ### API
 API are made with `Node.js` with `Typescript`
 
-Endpoint of the API: 
+Endpoint of the API:
+
     USER ROUTES
     `/user` - post
     `/user/id` - get / delete / put
     `/users` - get / delete
+    
     PROJECT ROUTES
     `/project` - post dsq
     `/project/id` - get / delete / put
