@@ -16,5 +16,7 @@ export default {
   } 
 ```
 ### FOR RUN THE PROJECT
+`cd API`
 
-Dont forget to run `npm install` then `npm start` after cloning the repository
+Dont forget to create your `dbUser.ts` for your `db` configuration
+`npm install` then `npm start`
