@@ -1,0 +1,12 @@
+{
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true,
+    "typescript.format.semicolons": "remove",
+    "javascript.format.semicolons": "remove",
+    "prettier.semi": false,
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "prettier.printWidth": 60 
+}
