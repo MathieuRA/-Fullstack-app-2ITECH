@@ -1,3 +1,6 @@
+### INCOMING CHANGE
+UPDATE of the UI
+
 ### FULLSTACK PROJECT
 Inside the front folder, you will have the UI as developement env.
 
