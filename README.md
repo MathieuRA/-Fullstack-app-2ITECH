@@ -24,3 +24,21 @@ export default {
 Dont forget to create your `dbUser.ts` for your `db` configuration
 
 `npm install` then `npm start`
+
+### API
+API are made with `Node.js` with `Typescript`
+
+Endpoint of the API: 
+    USER ROUTES
+    `/user` - post
+    `/user/id` - get / delete / put
+    `/users` - get / delete
+    PROJECT ROUTES
+    `/project` - post dsq
+    `/project/id` - get / delete / put
+    `/project` - get / delete
+    
+When deleting user, each project of this user are deleted too. 
+    
+### UI
+UI made with `React.js` with `JSX`
