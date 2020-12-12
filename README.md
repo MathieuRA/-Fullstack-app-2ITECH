@@ -4,7 +4,7 @@ UPDATE of the UI
 ### FULLSTACK PROJECT
 Inside the front folder, you will have the UI as developement env.
 
-You will found a build of the UI in `API/public`
+You will found a build of this UI in `API/public`
 
 ### REQUIREMENT
 
