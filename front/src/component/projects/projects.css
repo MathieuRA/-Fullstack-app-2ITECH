@@ -1,0 +1,22 @@
+.card .card-img-top{
+    height: 150px;
+}
+.card.project{
+    width: 290px!important;
+    height: 100%;
+}
+.projectsContainer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.formProject{
+    background-color: gainsboro;
+    height: calc(100vh - 94px);
+    width: 100vw;
+    overflow: hidden;
+}
+.formProject form{
+    width: 70%;
+    margin:auto;
+}

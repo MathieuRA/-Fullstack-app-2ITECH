@@ -59,6 +59,8 @@ export default class EditModal extends React.Component {
           },
         }))
         break
+      default:
+        break
     }
   }
 
@@ -71,10 +73,19 @@ export default class EditModal extends React.Component {
 
     let i = 0
 
+    const reformateContent = {
+      firstname: contents.firstname,
+      lastname: contents.lastname,
+      job: contents.job,
+    }
+
     return (
-      <div onDoubleClick={this.toogleEditing}>
-        {map(contents, (content) => {
-          const key = Object.keys(contents)[i]
+      <div
+        className='card-body'
+        onDoubleClick={this.toogleEditing}
+      >
+        {map(reformateContent, (content) => {
+          const key = Object.keys(reformateContent)[i]
           if (
             // hide useless change without delete them of the object
             key === '__v' ||
@@ -92,18 +103,21 @@ export default class EditModal extends React.Component {
                 content={content}
                 isEditing={this.state.isEditing}
                 onChange={(e) => this._editField(e, key)}
+                label={key}
               />
             </>
           )
         })}
+        <br />
         <small>
-          Doublie clique pour{' '}
+          Double clique pour{' '}
           {this.state.isEditing ? (
             <span>annuler</span>
           ) : (
             <span>modifier</span>
           )}
         </small>
+        <br />
         {this.state.isEditing && (
           <button
             onClick={() =>
@@ -112,7 +126,9 @@ export default class EditModal extends React.Component {
                 hasEditedUser,
                 this.toogleEditing
               )
-            }>
+            }
+            className='btn btn-outline-info'
+          >
             Modifier
           </button>
         )}
@@ -121,10 +137,25 @@ export default class EditModal extends React.Component {
   }
 }
 
-const FormField = ({ content, isEditing, onChange }) => {
+const FormField = ({
+  content,
+  isEditing,
+  onChange,
+  label,
+}) => {
+  const $class =
+    label === 'firstname'
+      ? 'title'
+      : label === 'lastname'
+      ? 'text mb-2'
+      : 'subtitle text-muted'
   return isEditing ? (
-    <input placeholder={content} onChange={onChange} />
+    <input
+      className={`card-${$class}`}
+      placeholder={content}
+      onChange={onChange}
+    />
   ) : (
-    <p>{content}</p>
+    <p className={`card-${$class}`}> {content}</p>
   )
 }

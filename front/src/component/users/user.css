@@ -3,3 +3,34 @@
     color: red;
     opacity: 0.8;
 }
+.containerFlex .card{
+    width: 40%;
+}
+.card-body{
+    background-color: #f3f3f3;
+}
+.card .close{
+    background-color: #818181;
+}
+.containerFlex{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.userButton{
+    width: 100%;
+}
+
+.containerUser{
+    background-color: gainsboro;
+    height: calc(100vh - 94px);
+    width: 100vw;
+    overflow: hidden;
+}
+.containerUser form{
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+}

@@ -6,6 +6,9 @@ import { map, isEmpty } from 'lodash'
 
 import Notification from '../../utils/notification'
 
+import './projects.css'
+import { getRandomColor } from '../../utils/tools'
+
 const AddProject = ({ users, error, success, refresh }) => {
   const options = [
     { value: 'css', label: 'CSS' },
@@ -22,12 +25,11 @@ const AddProject = ({ users, error, success, refresh }) => {
   const title = useRef()
   const date = useRef()
   const dev = useRef()
-  const thumbnail = useRef()
 
   const [techno, setTechno] = useState()
 
   return (
-    <>
+    <div className='formProject pt-4'>
       <form
         onSubmit={(e) =>
           _handleSubmit(
@@ -36,7 +38,6 @@ const AddProject = ({ users, error, success, refresh }) => {
             techno,
             dev.current.value,
             date.current.value,
-            thumbnail.current.value,
             error,
             success,
             refresh
@@ -44,56 +45,71 @@ const AddProject = ({ users, error, success, refresh }) => {
         }
       >
         <div>
-          <label>
-            Titre:
-            <input
-              id='title'
-              name='title'
-              ref={title}
-              type='text'
-            />
-          </label>
-          <label>
-            Techno:
-            <MultiSelect
-              options={options}
-              onChange={setTechno}
-              value={techno}
-            />
-          </label>
-          <label>
-            Le développeur
-            <select ref={dev}>
-              {map(users, (user) => {
-                return (
-                  <option key={user._id} value={user._id}>
-                    {user.firstname}
-                  </option>
-                )
-              })}
-            </select>
-          </label>
-          <label>
-            <input
-              type='date'
-              name='created_date'
-              id='created_date'
-              ref={date}
-            />
-          </label>
-          <label>
-            Image
-            <input
-              type='text'
-              name='thumbnail'
-              id='thumbnail'
-              ref={thumbnail}
-            />
-          </label>
+          <div className='form-row'>
+            <div className='col'>
+              <label>
+                Titre:
+                <input
+                  id='title'
+                  name='title'
+                  ref={title}
+                  type='text'
+                  className='form-control'
+                />
+              </label>
+            </div>
+            <div className='col'>
+              <label>
+                Technologie:
+                <MultiSelect
+                  options={options}
+                  onChange={setTechno}
+                  value={techno}
+                />
+              </label>
+            </div>
+            <div className='col'>
+              <label>
+                Le développeur
+                <div>
+                  <select ref={dev}>
+                    {map(users, (user) => {
+                      return (
+                        <option
+                          key={user._id}
+                          value={user._id}
+                        >
+                          {user.firstname}
+                        </option>
+                      )
+                    })}
+                  </select>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div className='form-row'>
+            <div className='col'>
+              <label>
+                <input
+                  type='date'
+                  name='created_date'
+                  id='created_date'
+                  ref={date}
+                />
+              </label>
+            </div>
+          </div>
         </div>
-        <button type='submit'>Envoyer</button>
+        <button
+          type='submit'
+          className='btn btn-outline-primary'
+        >
+          Envoyer
+        </button>
       </form>
-    </>
+    </div>
   )
 }
 
@@ -104,15 +120,17 @@ const AllProject = ({
   refresh,
 }) =>
   !isEmpty(projects) ? (
-    map(projects, (project) => (
-      <ShowProject
-        key={project._id}
-        project={project}
-        error={error}
-        success={success}
-        refresh={refresh}
-      />
-    ))
+    <div className='projectsContainer mt-3'>
+      {map(projects, (project) => (
+        <ShowProject
+          key={project._id}
+          project={project}
+          error={error}
+          success={success}
+          refresh={refresh}
+        />
+      ))}
+    </div>
   ) : (
     <p>Aucun projet</p>
   )
@@ -127,7 +145,7 @@ const ShowProject = ({
   _getUser(project.developper_id, setUser)
   return (
     <>
-      <div>
+      <div className='card project mb-3'>
         <button
           onClick={() =>
             _deleteProject(
@@ -143,16 +161,29 @@ const ShowProject = ({
         >
           <span aria-hidden='true'>&times;</span>
         </button>
-        <h2>{project.title}</h2>
-        {user && (
-          <div>
-            <p>Développeur</p>
-            <p>{user}</p>
-          </div>
-        )}
-        <ul>
+        <div
+          className='card-img-top'
+          style={{ backgroundColor: getRandomColor() }}
+        ></div>
+        <div className='card-body'>
+          <h5 className='card-title'>{project.title}</h5>
+          {user && (
+            <div>
+              <p className='card-text'>
+                Développeur: {user}
+              </p>
+            </div>
+          )}
+        </div>
+        <ul className='list-group list-grou-flush'>
           {map(project.techno, (techo) => (
-            <li key={techo.value}>{techo.label}</li>
+            <li
+              className='list-group-item'
+              key={techo.value}
+              style={{ color: getRandomColor() }}
+            >
+              {techo.label}
+            </li>
           ))}
         </ul>
       </div>
@@ -187,7 +218,6 @@ const _handleSubmit = (
   techno,
   dev,
   date,
-  thumbnail,
   error,
   success,
   refresh
@@ -198,7 +228,6 @@ const _handleSubmit = (
     techno,
     dev,
     new Date(date).getTime(),
-    thumbnail,
     error,
     success,
     refresh
@@ -210,7 +239,6 @@ const _createProject = async (
   techno,
   devId,
   timestamp,
-  thumbnail,
   error,
   success,
   refresh
@@ -221,13 +249,7 @@ const _createProject = async (
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
-        _formateForAPI(
-          title,
-          techno,
-          devId,
-          timestamp,
-          thumbnail
-        )
+        _formateForAPI(title, techno, devId, timestamp)
       ),
     }
   )
@@ -244,14 +266,12 @@ const _formateForAPI = (
   title,
   techno,
   devId,
-  timestamp,
-  thumbnail
+  timestamp
 ) => {
   return {
     title,
     techno,
     developper_id: devId,
-    thumbnail,
     created_date: timestamp,
   }
 }
@@ -334,17 +354,22 @@ export default class Project extends React.Component {
             {success}
           </Notification>
         )}
-        <button>
-          {route === 'get' ? (
-            <span onClick={() => this.setRoute('post')}>
-              Ajouter un projet
-            </span>
-          ) : (
-            <span onClick={() => this.setRoute('get')}>
-              Voir tout les projets
-            </span>
-          )}
-        </button>
+        {route === 'get' ? (
+          <button
+            className='btn alert-info userButton'
+            onClick={() => this.setRoute('post')}
+          >
+            Ajouter un projet
+          </button>
+        ) : (
+          <button
+            className='btn alert-info userButton'
+            onClick={() => this.setRoute('get')}
+          >
+            Voir tout les projets
+          </button>
+        )}
+
         {route === 'get' &&
           (loaded ? (
             <AllProject

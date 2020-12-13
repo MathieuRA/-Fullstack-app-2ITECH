@@ -18,10 +18,6 @@ export default new Schema({
     type: Array,
     required: 'Wish techno was used ?',
   },
-  thumbnail: {
-    type: String,
-    required: 'Please select image for this project',
-  },
   title: {
     type: String,
     required: 'Title is needed',

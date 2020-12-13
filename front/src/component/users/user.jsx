@@ -10,8 +10,8 @@ import './user.css'
 
 const AddUser = ({ setError, setSuccess }) => {
   const firstname = useRef()
-  const job = useRef()
   const lastname = useRef()
+  const job = useRef()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,42 +34,55 @@ const AddUser = ({ setError, setSuccess }) => {
   }
 
   return (
-    <div>
+    <div className='containerUser'>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Nom:
-            <input
-              id='firstname'
-              name='firstname'
-              ref={firstname}
-              type='text'
-            />
-          </label>
+        <div className='form-row'>
+          <div className='col'>
+            <label>
+              Nom:
+              <input
+                id='firstname'
+                name='firstname'
+                ref={firstname}
+                type='text'
+                className='form-control'
+              />
+            </label>
+          </div>
+          <div className='col'>
+            <label>
+              Prénom:
+              <input
+                id='lastname'
+                name='lastname'
+                ref={lastname}
+                type='text'
+                className='form-control'
+              />
+            </label>
+          </div>
         </div>
-        <div>
-          <label>
-            Prénom:
+        <div className='form-row'>
+          <div className='col'>
+            <label>
+              Métier:
+              <input
+                id='job'
+                name='job'
+                ref={job}
+                type='text'
+                className='form-control'
+              />
+            </label>
+          </div>
+          <div className='col'>
             <input
-              id='lastname'
-              name='lastname'
-              ref={lastname}
-              type='text'
+              type='submit'
+              value='Envoyer'
+              className='btn btn-outline-primary'
             />
-          </label>
+          </div>
         </div>
-        <div>
-          <label>
-            Métier:
-            <input
-              id='job'
-              name='job'
-              ref={job}
-              type='text'
-            />
-          </label>
-        </div>
-        <input type='submit' value='Envoyer' />
       </form>
     </div>
   )
@@ -85,7 +98,7 @@ const AllUsers = ({
     <p>Aucun utilisateur</p>
   ) : (
     map(users, (user) => (
-      <div key={user._id}>
+      <div className='card mb-3' key={user._id}>
         <button
           onClick={() =>
             _deleteUser(
@@ -194,7 +207,10 @@ export class User extends React.Component {
 
   setSuccess = (success) => this.setState({ success })
 
-  _setRoute = (route) => this.setState({ route })
+  _setRoute = (route) => {
+    console.log(route)
+    this.setState({ route })
+  }
 
   render() {
     const {
@@ -216,19 +232,26 @@ export class User extends React.Component {
             {success}
           </Notification>
         )}
-        <button>
+        <div>
           {route === 'get' ? (
-            <span onClick={() => this._setRoute('post')}>
+            <button
+              className='btn alert-info userButton'
+              onClick={() => this._setRoute('post')}
+            >
               Ajouter un utilisateur
-            </span>
+            </button>
           ) : (
-            <span onClick={() => this._setRoute('get')}>
+            <button
+              className='btn alert-info userButton'
+              onClick={() => this._setRoute('get')}
+            >
               Tout les utilisateurs
-            </span>
+            </button>
           )}
-        </button>
+        </div>
+
         {route === 'get' && (
-          <div>
+          <div className='containerFlex'>
             {!usersLoaded ? (
               <p>Chargement des utilisateurs ...</p>
             ) : (
