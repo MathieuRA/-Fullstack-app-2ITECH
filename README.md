@@ -39,7 +39,7 @@ Endpoint of the API:
     `/users` - get / delete
     
     PROJECT ROUTES
-    `/project` - post dsq
+    `/project` - post
     `/project/id` - get / delete / put
     `/project` - get / delete
     
